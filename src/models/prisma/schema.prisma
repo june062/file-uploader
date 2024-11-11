@@ -19,6 +19,7 @@ model User{
   id Int @id @default(autoincrement())
   firstName String 
   lasName String
+  username String @unique
   password String 
   folders Folder[]
   files File[]
@@ -26,7 +27,7 @@ model User{
 
 model Folder{
   id Int @id @default(autoincrement())
-  name String 
+  name String @unique
   owner User @relation(fields: [ownerID], references: [id])
   ownerID Int
   files File[]
@@ -35,7 +36,7 @@ model Folder{
 
 model File{
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   fileSize String
   fileType String
   added DateTime @default(now())
