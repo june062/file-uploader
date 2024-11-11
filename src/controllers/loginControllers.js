@@ -1,5 +1,8 @@
+const queries = require("../models/queries");
+const passport = require("passport");
+const validationMiddleware = [];
+
 const getLoginPage = [
-  /* authentication middleware */
   function (req, res, next) {
     try {
       res.render("loginPage");
@@ -8,5 +11,11 @@ const getLoginPage = [
     }
   },
 ];
-
-module.exports = { getLoginPage };
+const loginPost = [
+  validationMiddleware,
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "login",
+  }),
+];
+module.exports = { getLoginPage, loginPost };
