@@ -25,7 +25,7 @@ const signupPost = [
       );
       res.redirect("/login");
     } catch (error) {
-      return error;
+      return next(error);
     }
   },
 ];

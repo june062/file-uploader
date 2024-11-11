@@ -3,6 +3,6 @@ const signupControllers = require("../controllers/signupControllers");
 const signupRouter = Router();
 
 signupRouter.get("/", signupControllers.getSignupPage);
-signupRouter.post("/", signupControllers.signupPost);
+signupRouter.post("/submit", signupControllers.signupPost);
 
 module.exports = signupRouter;

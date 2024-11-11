@@ -6,7 +6,31 @@
     <title>Signup</title>
   </head>
   <body>
-    <h1>Signup Form</h1>
-    <a href="/">Home</a>
+    <form action="/signup/submit" method="post">
+      <legend>Sign up</legend>
+      <p>
+        <label for="firstName">First name: </label>
+        <input type="text" id="firstName" name="firstName" />
+      </p>
+
+      <p>
+        <label for="lastName">Last name: </label>
+        <input type="text" id="lastName" name="lastName" />
+      </p>
+
+      <p>
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" />
+      </p>
+
+      <p>
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" />
+      </p>
+
+      <p>
+        <button type="submit">Submit</button>
+      </p>
+    </form>
   </body>
 </html>
