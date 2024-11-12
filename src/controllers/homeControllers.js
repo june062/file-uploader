@@ -1,5 +1,6 @@
+const authMiddleware = require("../middleware/authMiddleware");
+
 const getHomePage = [
-  /* authentication middleware */
   function (req, res, next) {
     try {
       res.locals.user = req.user;
@@ -9,5 +10,15 @@ const getHomePage = [
     }
   },
 ];
-
-module.exports = { getHomePage };
+const logout = [
+  authMiddleware.isLoggedIn,
+  function (req, res, next) {
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/login");
+    });
+  },
+];
+module.exports = { getHomePage, logout };

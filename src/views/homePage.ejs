@@ -10,7 +10,8 @@
     <%if(locals.loggedIn){%>
     <h2>Welcome back <%=locals.user.username%></h2>
     <a href="/logout">Logout</a>
-    <%}%>
+    <%}%> <%if(!locals.loggedIn){%>
     <a href="/login">Login</a>
+    <%}%>
   </body>
 </html>
