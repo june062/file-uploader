@@ -15,14 +15,14 @@ const signupPost = [
   async function (req, res, next) {
     try {
       const password = await crypt.hash(req.body.password, 12);
-      console.log(
-        await queries.createUser(
-          req.body.firstName,
-          req.body.lastName,
-          req.body.username,
-          password
-        )
+
+      await queries.createUser(
+        req.body.firstName,
+        req.body.lastName,
+        req.body.username,
+        password
       );
+
       res.redirect("/login");
     } catch (error) {
       return next(error);
