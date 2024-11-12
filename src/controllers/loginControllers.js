@@ -14,12 +14,13 @@ const getLoginPage = [
 const loginPost = [
   validationMiddleware,
   passport.authenticate("local", {
-    failureRedirect: "/",
+    failureRedirect: "/login",
   }),
   function (req, res, next) {
-    console.log(req.user);
+    console.log("hello");
+    res.locals.username = req.user.username;
     res.redirect("/");
   },
 ];
 
-module.exports = { getLoginPage, loginPost, validationMiddleware };
+module.exports = { getLoginPage, loginPost };

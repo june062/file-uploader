@@ -30,7 +30,10 @@ require("./config/passportConf");
 app.use(passport.session());
 
 const PORT = process.env.DEV_PORT || 3000;
-
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.isAuthenticated();
+  next();
+});
 app.use("/", homeRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
