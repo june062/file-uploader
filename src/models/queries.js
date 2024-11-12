@@ -15,7 +15,22 @@ async function getUsers() {
 
   return users;
 }
+
+async function getUserFolders(userID) {
+  const folders = await prisma.user.findMany({
+    where: {
+      id: userID,
+    },
+    select: {
+      folders: true,
+    },
+  });
+
+  return folders[0].folders;
+}
+
 module.exports = {
   createUser,
   getUsers,
+  getUserFolders,
 };
