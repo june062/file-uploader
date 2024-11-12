@@ -1,6 +1,7 @@
 const authMiddleware = require("../middleware/authMiddleware");
 
 const getHomePage = [
+  authMiddleware.isLoggedIn,
   function (req, res, next) {
     try {
       res.locals.user = req.user;

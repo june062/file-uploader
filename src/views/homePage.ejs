@@ -6,12 +6,11 @@
     <title>Home</title>
   </head>
   <body>
-    <h1>Home Page</h1>
     <%if(locals.loggedIn){%>
     <h2>Welcome back <%=locals.user.username%></h2>
     <a href="/logout">Logout</a>
     <%}%> <%if(!locals.loggedIn){%>
     <a href="/login">Login</a>
-    <%}%>
+    <%}%> <%- include('reusables/navbar')%>
   </body>
 </html>

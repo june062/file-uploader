@@ -17,8 +17,6 @@ const loginPost = [
     failureRedirect: "/login",
   }),
   function (req, res, next) {
-    console.log("hello");
-    res.locals.username = req.user.username;
     res.redirect("/");
   },
 ];
