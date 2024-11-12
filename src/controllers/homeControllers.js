@@ -1,4 +1,5 @@
 const authMiddleware = require("../middleware/authMiddleware");
+const queries = require("../models/queries");
 
 const getHomePage = [
   authMiddleware.isLoggedIn,
@@ -34,4 +35,26 @@ const getFolderForm = [
     res.render("forms/folderForm");
   },
 ];
-module.exports = { getHomePage, logout, getFileForm, getFolderForm };
+
+const getAllFiles = [authMiddleware.isLoggedIn];
+
+const getAllFolders = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    try {
+      const userFolders = await queries.getUserFolders(req.user.id);
+      res.render("allFolders", { userFolders: userFolders });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
+module.exports = {
+  getHomePage,
+  logout,
+  getFileForm,
+  getFolderForm,
+  getAllFolders,
+  getAllFiles,
+};
