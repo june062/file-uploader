@@ -9,4 +9,6 @@ homeRouter.get("/folderForm", homeControllers.getFolderForm);
 homeRouter.get("/allFiles", homeControllers.getAllFiles);
 homeRouter.get("/allFolders", homeControllers.getAllFolders);
 
+homeRouter.post("/folderForm/submit", homeControllers.submitFolderForm);
+
 module.exports = homeRouter;

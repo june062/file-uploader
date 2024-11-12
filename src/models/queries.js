@@ -11,7 +11,11 @@ async function createUser(firstName, lastName, username, password) {
   return createdUser;
 }
 async function getUsers() {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    include: {
+      folders: true,
+    },
+  });
 
   return users;
 }
@@ -29,8 +33,24 @@ async function getUserFolders(userID) {
   return folders[0].folders;
 }
 
+async function createFolder(userID, folderName) {
+  const result = await prisma.folder.create({
+    data: {
+      name: folderName,
+      owner: {
+        connect: {
+          id: userID,
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserFolders,
+  createFolder,
 };

@@ -1,5 +1,6 @@
 const authMiddleware = require("../middleware/authMiddleware");
 const queries = require("../models/queries");
+const validationMiddleware = [];
 
 const getHomePage = [
   authMiddleware.isLoggedIn,
@@ -49,6 +50,19 @@ const getAllFolders = [
   },
 ];
 
+const submitFolderForm = [
+  authMiddleware.isLoggedIn,
+  validationMiddleware,
+  async function (req, res, next) {
+    try {
+      await queries.createFolder(req.user.id, req.body.folderName);
+      res.redirect("/allFolders");
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
 module.exports = {
   getHomePage,
   logout,
@@ -56,4 +70,5 @@ module.exports = {
   getFolderForm,
   getAllFolders,
   getAllFiles,
+  submitFolderForm,
 };
