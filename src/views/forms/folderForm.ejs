@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New folder</title>
+  </head>
+  <body>
+    <%- include('../reusables/navbar')%>
+    <main>
+      <form
+        action="/folderForm/submit"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <legend>New folder</legend>
+        <p>
+          <label for="folderName">Folder name: </label>
+          <input type="text" id="folderName" name="folderName" />
+        </p>
+        <p>
+          <button type="submit">Create folder</button>
+        </p>
+      </form>
+    </main>
+  </body>
+</html>

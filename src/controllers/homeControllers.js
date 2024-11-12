@@ -28,4 +28,10 @@ const getFileForm = [
     res.render("forms/fileForm");
   },
 ];
-module.exports = { getHomePage, logout, getFileForm };
+const getFolderForm = [
+  authMiddleware.isLoggedIn,
+  function (req, res, next) {
+    res.render("forms/folderForm");
+  },
+];
+module.exports = { getHomePage, logout, getFileForm, getFolderForm };
