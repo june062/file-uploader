@@ -22,4 +22,10 @@ const logout = [
     });
   },
 ];
-module.exports = { getHomePage, logout };
+const getFileForm = [
+  authMiddleware.isLoggedIn,
+  function (req, res, next) {
+    res.render("forms/fileForm");
+  },
+];
+module.exports = { getHomePage, logout, getFileForm };

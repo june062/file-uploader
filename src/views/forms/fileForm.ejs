@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New File</title>
+  </head>
+  <body>
+    <%-include('../reusables/navbar')%>
+
+    <main>
+      <form
+        action="/fileForm/submit"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <legend>Upload a file</legend>
+        <p>
+          <label for="fileName">File name: </label>
+          <input type="text" id="fileName" name="fileName" />
+        </p>
+        <p>
+          <label for="file">File</label>
+          <input type="file" id="file" name="file" />
+        </p>
+      </form>
+    </main>
+  </body>
+</html>
