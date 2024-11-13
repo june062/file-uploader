@@ -97,6 +97,22 @@ async function deleteFolderAndContents(folderID) {
   }
 }
 
+async function getFileInfo(fileID) {
+  try {
+    const fileInfo = await prisma.file.findUnique({
+      where: {
+        id: fileID,
+      },
+      include: {
+        containerID: true,
+      },
+    });
+    return fileInfo;
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
@@ -104,4 +120,5 @@ module.exports = {
   createFolder,
   getFolderContents,
   deleteFolderAndContents,
+  getFileInfo,
 };

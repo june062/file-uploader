@@ -112,6 +112,18 @@ const deleteFolderAndContents = [
   },
 ];
 
+const getFileInfo = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    try {
+      const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
+      res.render("fileInfo", { fileInfo: fileInfo });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
 module.exports = {
   getHomePage,
   logout,
@@ -123,4 +135,5 @@ module.exports = {
   submitFileForm,
   getFolderContents,
   deleteFolderAndContents,
+  getFileInfo,
 };
