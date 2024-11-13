@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const homeControllers = require("../controllers/homeControllers");
+const allFoldersControllers = require("../controllers/allFoldersControllers");
+const allFilesControllers = require("../controllers/allFilesControllers");
 const homeRouter = Router();
 const allFoldersRouter = Router({ mergeParams: true });
 const allFilesRouter = Router({ mergeParams: true });
@@ -22,16 +24,16 @@ homeRouter.post("/fileForm/submit", homeControllers.submitFileForm);
 
 /* allFolders routes */
 homeRouter.use("/allFolders", allFoldersRouter);
-allFoldersRouter.get("/", homeControllers.getAllFolders);
-allFoldersRouter.get("/:folderID", homeControllers.getFolderContents);
+allFoldersRouter.get("/", allFoldersControllers.getAllFolders);
+allFoldersRouter.get("/:folderID", allFoldersControllers.getFolderContents);
 allFoldersRouter.get(
   "/:folderID/delete",
-  homeControllers.deleteFolderAndContents
+  allFoldersControllers.deleteFolderAndContents
 );
 
 /* allFiles routes */
 homeRouter.use("/allFiles", allFilesRouter);
-allFilesRouter.get("/", homeControllers.getAllFiles);
-allFilesRouter.get("/:fileID", homeControllers.getFileInfo);
+allFilesRouter.get("/", allFilesControllers.getAllFiles);
+allFilesRouter.get("/:fileID", allFilesControllers.getFileInfo);
 
 module.exports = homeRouter;
