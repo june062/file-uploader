@@ -36,14 +36,22 @@ const getFolderForm = [
   },
 ];
 
-const getAllFiles = [authMiddleware.isLoggedIn];
+const getAllFiles = [
+  authMiddleware.isLoggedIn,
+  function (req, res, next) {
+    try {
+      res.render("allFiles");
+    } catch (error) {
+      next(error);
+    }
+  },
+];
 
 const getAllFolders = [
   authMiddleware.isLoggedIn,
-  async function (req, res, next) {
+  function (req, res, next) {
     try {
-      const userFolders = await queries.getUserFolders(req.user.id);
-      res.render("allFolders", { userFolders: userFolders });
+      res.render("allFolders");
     } catch (error) {
       next(error);
     }

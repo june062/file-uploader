@@ -44,8 +44,6 @@ async function createFolder(userID, folderName) {
       },
     },
   });
-
-  console.log(result);
 }
 
 module.exports = {

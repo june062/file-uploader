@@ -3,19 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css" />
-    <title>All folders</title>
+    <title>Document</title>
   </head>
   <body>
     <%- include('./reusables/navbar')%>
-
     <main>
       <div>
         <ul>
-          <%for(let i = 0; i< locals.user.folders.length; i++){%>
+          <%for(let i = 0; i< locals.user.files.length; i++){%>
           <li>
-            <a href="allFolders/<%=locals.user.folders[i].id%>"
-              ><%=locals.user.folders[i].name%></a
+            <a href="allFiles/<%=locals.user.files[i].id%>"
+              ><%=locals.user.files[i].name%></a
             >
           </li>
           <%}%>
