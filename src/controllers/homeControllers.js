@@ -32,7 +32,10 @@ const getFileForm = [
 const getFolderForm = [
   authMiddleware.isLoggedIn,
   function (req, res, next) {
-    res.render("forms/folderForm");
+    res.render("forms/folderForm", {
+      header: "Create a folder",
+      src: "/folderForm/submit",
+    });
   },
 ];
 
@@ -124,6 +127,38 @@ const getFileInfo = [
   },
 ];
 
+const updateFolderPage = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    const folder = req.user.folders.find(
+      (obj) => obj.id === +req.params.folderID
+    );
+    res.locals.folderName = folder.name;
+
+    res.render("forms/folderForm", {
+      header: "Update folder",
+      src: `/folderForm/${req.params.folderID}/update/submit`,
+    });
+  },
+];
+
+const submitFolderUpdate = [
+  authMiddleware.isLoggedIn,
+  validationMiddleware,
+  async function (req, res, next) {
+    try {
+      await queries.updateFolder(
+        Number(req.params.folderID),
+        req.body.folderName
+      );
+
+      res.redirect(`/allFolders/${req.params.folderID}`);
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
 module.exports = {
   getHomePage,
   logout,
@@ -136,4 +171,6 @@ module.exports = {
   getFolderContents,
   deleteFolderAndContents,
   getFileInfo,
+  updateFolderPage,
+  submitFolderUpdate,
 };

@@ -113,6 +113,21 @@ async function getFileInfo(fileID) {
   }
 }
 
+async function updateFolder(folderID, newName) {
+  try {
+    await prisma.folder.update({
+      where: {
+        id: folderID,
+      },
+      data: {
+        name: newName,
+      },
+    });
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
@@ -121,4 +136,5 @@ module.exports = {
   getFolderContents,
   deleteFolderAndContents,
   getFileInfo,
+  updateFolder,
 };

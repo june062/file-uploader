@@ -13,6 +13,14 @@ homeRouter.get(
   "/allFolders/:folderID/delete",
   homeControllers.deleteFolderAndContents
 );
+homeRouter.get(
+  "/folderForm/:folderID/update",
+  homeControllers.updateFolderPage
+);
+homeRouter.post(
+  "/folderForm/:folderID/update/submit",
+  homeControllers.submitFolderUpdate
+);
 homeRouter.get("/allFiles/:fileID", homeControllers.getFileInfo);
 
 homeRouter.post("/folderForm/submit", homeControllers.submitFolderForm);

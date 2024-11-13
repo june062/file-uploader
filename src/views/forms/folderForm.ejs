@@ -9,12 +9,13 @@
   </head>
   <body>
     <%- include('../reusables/navbar')%>
+
+    <header><h1><%=header%></h1></header>
     <main>
-      <form action="/folderForm/submit" method="post">
-        <legend>New folder</legend>
+      <form action= <%=src%> method="post">
         <p>
           <label for="folderName">Folder name: </label>
-          <input type="text" id="folderName" name="folderName" />
+          <input type="text" id="folderName" name="folderName" value = "<%=locals.folderName%>" />
         </p>
         <p>
           <button type="submit">Create folder</button>
