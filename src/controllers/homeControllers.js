@@ -26,7 +26,7 @@ const logout = [
 const getFileForm = [
   authMiddleware.isLoggedIn,
   function (req, res, next) {
-    res.render("forms/fileForm");
+    res.render("forms/fileForm", { header: "Create a file" });
   },
 ];
 const getFolderForm = [
@@ -120,7 +120,7 @@ const getFileInfo = [
   async function (req, res, next) {
     try {
       const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
-      res.render("fileInfo", { fileInfo: fileInfo });
+      res.render("fileInfo", { fileInfo: fileInfo, header: fileInfo.name });
     } catch (error) {
       next(error);
     }
