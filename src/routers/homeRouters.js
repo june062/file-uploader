@@ -9,6 +9,10 @@ homeRouter.get("/folderForm", homeControllers.getFolderForm);
 homeRouter.get("/allFiles", homeControllers.getAllFiles);
 homeRouter.get("/allFolders", homeControllers.getAllFolders);
 homeRouter.get("/allFolders/:folderID", homeControllers.getFolderContents);
+homeRouter.get(
+  "/allFolders/:folderID/delete",
+  homeControllers.deleteFolderAndContents
+);
 
 homeRouter.post("/folderForm/submit", homeControllers.submitFolderForm);
 homeRouter.post("/fileForm/submit", homeControllers.submitFileForm);

@@ -78,10 +78,30 @@ async function getFolderContents(folderID) {
   }
 }
 
+async function deleteFolderAndContents(folderID) {
+  const deleteFiles = prisma.file.deleteMany({
+    where: {
+      ownerID: folderID,
+    },
+  });
+
+  const deleteFolder = prisma.folder.delete({
+    where: {
+      id: folderID,
+    },
+  });
+  try {
+    const transaction = await prisma.$transaction([deleteFiles, deleteFolder]);
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserFolders,
   createFolder,
   getFolderContents,
+  deleteFolderAndContents,
 };

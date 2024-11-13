@@ -88,10 +88,24 @@ const getFolderContents = [
       const folderContents = await queries.getFolderContents(
         Number(req.params.folderID)
       );
+
       res.render("folderContents", {
         folderContents: folderContents.files,
         header: folderContents.name,
+        id: folderContents.id,
       });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
+const deleteFolderAndContents = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    try {
+      await queries.deleteFolderAndContents(Number(req.params.folderID));
+      res.redirect("/allFolders");
     } catch (error) {
       next(error);
     }
@@ -108,4 +122,5 @@ module.exports = {
   submitFolderForm,
   submitFileForm,
   getFolderContents,
+  deleteFolderAndContents,
 };

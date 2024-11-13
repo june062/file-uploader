@@ -9,7 +9,12 @@
   <body>
     <%- include('reusables/navbar')%>
 
-    <header><h1><%=header%>'s Files</h1></header>
+    <header>
+      <h1><%=header%>'s Files</h1>
+      <button>
+        <a href="/allFolders/<%=id%>/delete">Delete this folder</a>
+      </button>
+    </header>
 
     <main>
       <div>
