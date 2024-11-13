@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title>Folder contents</title>
+  </head>
+  <body>
+    <%- include('reusables/navbar')%>
+
+    <header><h1><%=header%>'s Files</h1></header>
+
+    <main>
+      <div>
+        <ul>
+          <%for(let i = 0; i< folderContents.length; i++){%>
+          <li>
+            <a href="allFiles/<%=folderContents[i].id%>"
+              ><%=folderContents[i].name%></a
+            >
+          </li>
+          <%}%>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

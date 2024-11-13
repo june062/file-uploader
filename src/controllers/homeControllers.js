@@ -88,7 +88,6 @@ const getFolderContents = [
       const folderContents = await queries.getFolderContents(
         Number(req.params.folderID)
       );
-      console.log(folderContents);
       res.render("folderContents", {
         folderContents: folderContents.files,
         header: folderContents.name,
