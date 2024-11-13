@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title>File Info</title>
+  </head>
+  <body>
+    <%- include('reusables/navbar')%>
+
+    <header>
+      <h1><%=header%>'s Files</h1>
+      <button>
+        <a href="/allFiles/<%=fileInfo.id%>/delete">Delete this folder</a>
+      </button>
+    </header>
+    <main>
+      <div class="selected-file-info">
+        <p>File name: <%=fileInfo.name%></p>
+
+        <p>File size: <%=fileInfo.fileSize%></p>
+
+        <p>Added on: <%=fileInfo.added%></p>
+
+        <p>File type: <%=fileInfo.fileType%></p>
+
+        <p>Owner: <%=fileInfo.ownerID%></p>
+      </div>
+    </main>
+  </body>
+</html>
