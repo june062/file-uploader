@@ -28,6 +28,11 @@
           <label for="selectFolder">Select a folder: </label>
           <select name="selectFolder" id="selectFolder">
             <option value="none">None</option>
+            <%for(let i = 0; i < locals.user.folders.length; i++){%>
+            <option value="<%=locals.user.folders[i].id%>">
+              <%=locals.user.folders[i].name%>
+            </option>
+            <%}%>
           </select>
         </p>
         <p>

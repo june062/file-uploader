@@ -71,6 +71,34 @@ const submitFolderForm = [
   },
 ];
 
+const submitFileForm = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
+const getFolderContents = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    try {
+      const folderContents = await queries.getFolderContents(
+        Number(req.params.folderID)
+      );
+      console.log(folderContents);
+      res.render("folderContents", {
+        folderContents: folderContents.files,
+        header: folderContents.name,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
 module.exports = {
   getHomePage,
   logout,
@@ -79,4 +107,6 @@ module.exports = {
   getAllFolders,
   getAllFiles,
   submitFolderForm,
+  submitFileForm,
+  getFolderContents,
 };
