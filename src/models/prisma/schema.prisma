@@ -40,6 +40,7 @@ model File{
   fileSize String
   fileType String
   added DateTime @default(now())
+  fileURL String
   container Folder @relation(fields:[containerID], references: [id])
   containerID Int
   owner User @relation(fields: [ownerID], references: [id])

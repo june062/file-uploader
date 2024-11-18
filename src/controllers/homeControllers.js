@@ -2,6 +2,32 @@ const authMiddleware = require("../middleware/authMiddleware");
 const queries = require("../models/queries");
 const validationMiddleware = [];
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+async function handleUpload(file) {
+  const options = {
+    use_filename: true,
+    unique_filename: true,
+    overwrite: true,
+  };
+  try {
+    const res = await cloudinary.uploader.upload(file, {
+      resource_type: "auto",
+    });
+    return res;
+  } catch (error) {
+    return error;
+  }
+}
+
 const getHomePage = [
   authMiddleware.isLoggedIn,
   function (req, res, next) {
@@ -54,9 +80,24 @@ const submitFolderForm = [
 
 const submitFileForm = [
   authMiddleware.isLoggedIn,
+  upload.single("file"),
   async function (req, res, next) {
     try {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const cldRes = await handleUpload(dataURI);
+
+      await queries.storeFileInfo(
+        req.body.fileName,
+        cldRes.bytes,
+        cldRes.format,
+        cldRes.url,
+        Number(req.body.selectFolder),
+        req.user.id
+      );
+      res.redirect("/allFiles");
     } catch (error) {
+      console.log(error);
       next(error);
     }
   },

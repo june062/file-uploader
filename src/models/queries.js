@@ -57,6 +57,7 @@ async function createFolder(userID, folderName) {
         },
       },
     });
+    console.log(result);
   } catch (error) {
     return error;
   }
@@ -104,7 +105,7 @@ async function getFileInfo(fileID) {
         id: fileID,
       },
       include: {
-        containerID: true,
+        container: true,
       },
     });
     return fileInfo;
@@ -127,6 +128,38 @@ async function updateFolder(folderID, newName) {
     return error;
   }
 }
+async function storeFileInfo(
+  name,
+  fileSize,
+  fileType,
+  fileURL,
+  folderID,
+  ownerID
+) {
+  try {
+    await prisma.file.create({
+      data: {
+        name: name,
+        fileSize: `${fileSize}`,
+        fileType: fileType,
+        fileURL: fileURL,
+        container: {
+          connect: {
+            id: folderID,
+          },
+        },
+        owner: {
+          connect: {
+            id: ownerID,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
 
 module.exports = {
   createUser,
@@ -137,4 +170,5 @@ module.exports = {
   deleteFolderAndContents,
   getFileInfo,
   updateFolder,
+  storeFileInfo,
 };

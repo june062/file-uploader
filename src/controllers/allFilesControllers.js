@@ -20,6 +20,7 @@ const getFileInfo = [
       const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
       res.render("fileInfo", { fileInfo: fileInfo, header: fileInfo.name });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   },

@@ -10,7 +10,7 @@
     <%- include('reusables/navbar')%>
 
     <header>
-      <h1><%=header%>'s Files</h1>
+      <h1><%=header%>'s Info</h1>
       <button>
         <a href="/allFiles/<%=fileInfo.id%>/delete">Delete this folder</a>
       </button>
@@ -26,6 +26,7 @@
         <p>File type: <%=fileInfo.fileType%></p>
 
         <p>Owner: <%=fileInfo.ownerID%></p>
+        <a href="/<%=fileInfo.id%>/download"><button>Download</button></a>
       </div>
     </main>
   </body>

@@ -19,8 +19,14 @@ homeRouter.post(
   homeControllers.submitFolderUpdate
 );
 
+/* Create endpoints to handle updating files the same way the above 2 endpoints work */
+
 homeRouter.post("/folderForm/submit", homeControllers.submitFolderForm);
-homeRouter.post("/fileForm/submit", homeControllers.submitFileForm);
+homeRouter.post(
+  "/fileForm/submit",
+
+  homeControllers.submitFileForm
+);
 
 /* allFolders routes */
 homeRouter.use("/allFolders", allFoldersRouter);
