@@ -134,7 +134,14 @@ const submitFolderUpdate = [
     }
   },
 ];
-
+const updateFilePage = [
+  authMiddleware.isLoggedIn,
+  async function (req, res, next) {
+    const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
+    res.locals.fileName = fileInfo.name;
+    res.render("forms/fileForm", { header: "Update Folder" });
+  },
+];
 module.exports = {
   getHomePage,
   logout,
@@ -144,4 +151,5 @@ module.exports = {
   submitFileForm,
   updateFolderPage,
   submitFolderUpdate,
+  updateFilePage,
 };

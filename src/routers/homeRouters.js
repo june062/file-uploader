@@ -18,6 +18,7 @@ homeRouter.post(
   "/folderForm/:folderID/update/submit",
   homeControllers.submitFolderUpdate
 );
+homeRouter.get("/fileForm/:fileID/update", homeControllers.updateFilePage);
 
 /* Create endpoints to handle updating files the same way the above 2 endpoints work */
 

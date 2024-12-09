@@ -1,6 +1,7 @@
 const authMiddleware = require("../middleware/authMiddleware");
 const queries = require("../models/queries");
 const validationMiddleware = [];
+const cloudinary = require("./homeControllers");
 
 const getAllFiles = [
   authMiddleware.isLoggedIn,
