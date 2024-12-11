@@ -52,7 +52,10 @@ const logout = [
 const getFileForm = [
   authMiddleware.isLoggedIn,
   function (req, res, next) {
-    res.render("forms/fileForm", { header: "Create a file" });
+    res.render("forms/fileForm", {
+      header: "Create a file",
+      src: "/fileForm/submit",
+    });
   },
 ];
 const getFolderForm = [
@@ -139,7 +142,38 @@ const updateFilePage = [
   async function (req, res, next) {
     const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
     res.locals.fileName = fileInfo.name;
-    res.render("forms/fileForm", { header: "Update Folder" });
+    res.render("forms/fileForm", {
+      header: "Update Folder",
+      src: `/fileForm/${req.params.fileID}/update/submit`,
+    });
+  },
+];
+const submitFileUpdate = [
+  authMiddleware.isLoggedIn,
+  validationMiddleware,
+  upload.single("file"),
+  async function (req, res, next) {
+    try {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const cldRes = await handleUpload(dataURI);
+
+      await queries.updateFile(
+        Number(req.params.fileID),
+        req.body.fileName,
+        `${cldRes.bytes}`,
+        cldRes.format,
+        cldRes.url,
+        Number(req.body.selectFolder),
+        Number(req.user.id)
+      );
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  function (req, res) {
+    res.redirect(`/allFiles/${req.params.fileID}`);
   },
 ];
 module.exports = {
@@ -152,4 +186,5 @@ module.exports = {
   updateFolderPage,
   submitFolderUpdate,
   updateFilePage,
+  submitFileUpdate,
 };

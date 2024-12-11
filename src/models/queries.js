@@ -57,7 +57,6 @@ async function createFolder(userID, folderName) {
         },
       },
     });
-    console.log(result);
   } catch (error) {
     return error;
   }
@@ -108,6 +107,7 @@ async function getFileInfo(fileID) {
         container: true,
       },
     });
+
     return fileInfo;
   } catch (error) {
     return error;
@@ -161,6 +161,44 @@ async function storeFileInfo(
   }
 }
 
+async function updateFile(
+  fileID,
+  fileName,
+  fileSize,
+  fileType,
+  fileURL,
+  folderID,
+  ownerID
+) {
+  try {
+    const result = await prisma.file.update({
+      where: {
+        id: fileID,
+      },
+      data: {
+        name: fileName,
+        fileSize: fileSize,
+        fileType: fileType,
+        fileURL: fileURL,
+        container: {
+          connect: {
+            id: folderID,
+          },
+        },
+        owner: {
+          connect: {
+            id: ownerID,
+          },
+        },
+      },
+    });
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
@@ -171,4 +209,5 @@ module.exports = {
   getFileInfo,
   updateFolder,
   storeFileInfo,
+  updateFile,
 };
