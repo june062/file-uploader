@@ -12,7 +12,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-async function handleUpload(file) {
+async function handleUpload(file, fileName) {
   const options = {
     use_filename: true,
     unique_filename: true,
@@ -21,6 +21,7 @@ async function handleUpload(file) {
   try {
     const res = await cloudinary.uploader.upload(file, {
       resource_type: "auto",
+      eager: [{ flags: "attachment" }],
     });
     return res;
   } catch (error) {
@@ -88,15 +89,16 @@ const submitFileForm = [
     try {
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-      const cldRes = await handleUpload(dataURI);
+      const cldRes = await handleUpload(dataURI, req.body.fileName);
+      console.log(cldRes);
 
       await queries.storeFileInfo(
         req.body.fileName,
-        cldRes.bytes,
+        `${cldRes.bytes}`,
         cldRes.format,
-        cldRes.url,
+        cldRes.eager[0].url,
         Number(req.body.selectFolder),
-        req.user.id
+        Number(req.user.id)
       );
       res.redirect("/allFiles");
     } catch (error) {

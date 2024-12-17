@@ -19,6 +19,7 @@ const getFileInfo = [
   async function (req, res, next) {
     try {
       const fileInfo = await queries.getFileInfo(Number(req.params.fileID));
+      console.log(fileInfo);
       res.render("fileInfo", { fileInfo: fileInfo, header: fileInfo.name });
     } catch (error) {
       console.log(error);
