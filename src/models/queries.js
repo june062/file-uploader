@@ -81,7 +81,7 @@ async function getFolderContents(folderID) {
 async function deleteFolderAndContents(folderID) {
   const deleteFiles = prisma.file.deleteMany({
     where: {
-      ownerID: folderID,
+      containerID: folderID,
     },
   });
 
@@ -93,6 +93,7 @@ async function deleteFolderAndContents(folderID) {
   try {
     const transaction = await prisma.$transaction([deleteFiles, deleteFolder]);
   } catch (error) {
+    console.log(error);
     return error;
   }
 }

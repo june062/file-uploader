@@ -91,7 +91,6 @@ const submitFileForm = [
       const b64 = Buffer.from(req.file.buffer).toString("base64");
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
       const cldRes = await handleUpload(dataURI, req.body.fileName);
-      console.log(cldRes);
 
       await queries.storeFileInfo(
         req.body.fileName,
