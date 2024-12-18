@@ -46,5 +46,6 @@ allFoldersRouter.get(
 homeRouter.use("/allFiles", allFilesRouter);
 allFilesRouter.get("/", allFilesControllers.getAllFiles);
 allFilesRouter.get("/:fileID", allFilesControllers.getFileInfo);
+allFilesRouter.get("/:fileID/delete", allFilesControllers.deleteFile);
 
 module.exports = homeRouter;

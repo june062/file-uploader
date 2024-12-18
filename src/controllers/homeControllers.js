@@ -20,6 +20,7 @@ async function handleUpload(file, fileName) {
   };
   try {
     const res = await cloudinary.uploader.upload(file, {
+      public_id: fileName,
       resource_type: "auto",
       eager: [{ flags: "attachment" }],
     });
@@ -189,4 +190,5 @@ module.exports = {
   submitFolderUpdate,
   updateFilePage,
   submitFileUpdate,
+  cloudinary,
 };

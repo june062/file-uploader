@@ -192,9 +192,21 @@ async function updateFile(
         },
       },
     });
-    console.log(result);
   } catch (error) {
     console.log(error);
+    return error;
+  }
+}
+
+async function deleteFile(fileID) {
+  try {
+    const deleteFile = await prisma.file.delete({
+      where: {
+        id: fileID,
+      },
+    });
+    console.log(deleteFile);
+  } catch (error) {
     return error;
   }
 }
@@ -210,4 +222,5 @@ module.exports = {
   updateFolder,
   storeFileInfo,
   updateFile,
+  deleteFile,
 };
