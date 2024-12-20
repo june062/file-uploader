@@ -1,6 +1,7 @@
 const crypt = require("bcryptjs");
 const queries = require("../models/queries");
 const validationMiddleware = [];
+const customSignupError = require("../errors/customSignupError");
 const getSignupPage = [
   function (req, res, next) {
     try {
@@ -25,7 +26,9 @@ const signupPost = [
 
       res.redirect("/login");
     } catch (error) {
-      return next(error);
+      /* Either bcrypt or prisma could both create an error, how would I know if a username already existing is actually the problem? Is try/catch block the best way to structure my code in situations like this?
+       */
+      return next(customSignupError("Username already exists!"));
     }
   },
 ];

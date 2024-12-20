@@ -40,6 +40,12 @@ app.use("/", homeRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 
+app.use(function (error, req, res, next) {
+  console.log(error);
+
+  res.status(error.statusCode || 500).send(error.message);
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
