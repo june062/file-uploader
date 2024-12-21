@@ -1,6 +1,8 @@
 const authMiddleware = require("../middleware/authMiddleware");
 const queries = require("../models/queries");
 const validationMiddleware = [];
+const fileUploadError = require("../errors/customFileUploadError");
+const folderCreationError = require("../errors/customFolderCreationError");
 
 const multer = require("multer");
 const storage = multer.memoryStorage();
@@ -78,13 +80,14 @@ const submitFolderForm = [
       await queries.createFolder(req.user.id, req.body.folderName);
       res.redirect("/allFolders");
     } catch (error) {
-      next(error);
+      next(folderCreationError("This folder name already exists"));
     }
   },
 ];
 
 const submitFileForm = [
   authMiddleware.isLoggedIn,
+  validationMiddleware,
   upload.single("file"),
   async function (req, res, next) {
     try {
@@ -103,13 +106,14 @@ const submitFileForm = [
       res.redirect("/allFiles");
     } catch (error) {
       console.log(error);
-      next(error);
+      next(fileUploadError("There was a problem uploading your file"));
     }
   },
 ];
 
 const updateFolderPage = [
   authMiddleware.isLoggedIn,
+  validationMiddleware,
   async function (req, res, next) {
     const folder = req.user.folders.find(
       (obj) => obj.id === +req.params.folderID
@@ -135,7 +139,7 @@ const submitFolderUpdate = [
 
       res.redirect(`/allFolders/${req.params.folderID}`);
     } catch (error) {
-      next(error);
+      next(folderCreationError("This folder name already exists"));
     }
   },
 ];
@@ -171,7 +175,7 @@ const submitFileUpdate = [
       );
       next();
     } catch (error) {
-      next(error);
+      next(fileUploadError("There was a problem uploading your file"));
     }
   },
   function (req, res) {
